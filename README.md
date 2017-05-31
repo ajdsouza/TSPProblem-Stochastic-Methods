@@ -6,9 +6,28 @@ The TSP problem is NP-Hard. We can verify an solution is an Hamiltonian Cycle in
 
 Here we implement solutions for the following three methods and compare and contrast their results
 
-1.  Exact Solution - Using the Branch and Bound with the lower bound as the MST solution, Break Cycle for large N
+1.  Exact Solution - Using the Branch and Bound with the lower bound as the MST Approx solution. Break Cycle for large N
+
+			MST-Approx:
+			Prim(for dense edges) or Kruskal give an MST in approx O(ElogV) time. 
+			Traverse the MST depth first for a full walk (an eulerian traverse thru the MST) and keep an preorder sequence of veertices ( sequnce of vertices traversed)
+ 			The TSP cannot be less than MST. And the preOrder sequence cannot be more than twice lowest cost TSP.
+			Christofedes Algorithm gives a tigher 1.5 approximation
+				
 2.  Heuristic Solution with and without Approximation Guarantees - Using MST-Approx and Farthest Insert Methods
+			Farthest Insertion (Prims with negative cost and  choosing jk):
+				At each step find the edge with the largest cost c_ir to the subtour r foind so far
+				pick j,k in the subtour to insert i inbetween j and k whcih maximizes c_ji+c_ik-cjk
+				O(n^2)
+
 3.  Stochastic Solution - Local Search Using 2 Opt Exchange with a combination of Simulated Annealing, Iterative Search, Random Walk with different K for search neighborhoods
+			A 2opt swap:
+				i,j  -> connect i-1 to j and i to j+1
+				(Path from i to j is reversed and connected to i-1)
+ 				The choice of i,j is random in a K-neighborhood
+				Use Local Search with Simulated annealing to get find global optimum.
+					Iniitally as Temp is large we accept TSP which have a higher cost then current TSP in the hops of finding a global optimum
+					As tempreature cools we tend to accept more local optimums
 
 
 Implementation
